@@ -1,4 +1,4 @@
-package com.sunjoy.trm.master;
+package com.sunjoy.trm.bizcore;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
