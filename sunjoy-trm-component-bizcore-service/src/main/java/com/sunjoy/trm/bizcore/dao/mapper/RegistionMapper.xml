@@ -1,5 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sunjoy.trm.bizcore.dao.mapper.RegistionMapper">
-
+	<sql id="selectFields">
+		select
+		reg.id as id,
+		reg.registion_no as registionNo,
+		reg.register_date as registerDate,
+		reg.student_id as sex,
+		reg.course_id as height,
+		reg.periods as periods,
+		reg.total_sections as totalSections,
+		reg.birth_date as birthDate,
+		reg.attach_sections as attachSections,
+		reg.total_fee as totalFee,
+		reg.payoff as payoff,
+		reg.payment_mode as paymentMode,
+		reg.payment_date as paymentDate,
+		reg.memo as memo,
+		reg.status as status,
+		reg.create_time as createTime,
+		reg.create_user as createUser,
+		reg.update_time as updateTime,
+		reg.update_user as updateUser
+	</sql>
+	<sql id="queryCondition">
+		<where>
+			<if test="id != null and id != ''">
+				and reg.id = #{id,jdbcType=VARCHAR}
+			</if>
+			<if test="code != null and code != ''">
+				and code like '%' ||
+				#{code,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="name != null and name != ''">
+				and name like '%' ||
+				#{name,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="sex != null and sex != ''">
+				and sex = #{sex,jdbcType=TINYINT}
+			</if>
+			
+		</where>
+	</sql>
 </mapper>
