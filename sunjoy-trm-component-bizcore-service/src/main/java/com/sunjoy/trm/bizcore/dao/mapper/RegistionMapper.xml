@@ -4,13 +4,11 @@
 	<sql id="selectFields">
 		select
 		reg.id as id,
-		reg.registion_no as registionNo,
 		reg.register_date as registerDate,
-		reg.student_id as sex,
-		reg.course_id as height,
+		reg.student_id as studentId,
+		reg.course_id as courseId,
 		reg.periods as periods,
 		reg.total_sections as totalSections,
-		reg.birth_date as birthDate,
 		reg.attach_sections as attachSections,
 		reg.total_fee as totalFee,
 		reg.payoff as payoff,
@@ -23,23 +21,305 @@
 		reg.update_time as updateTime,
 		reg.update_user as updateUser
 	</sql>
+	
+	<sql id="studentSelectFields">
+		stu.code as studentCode,
+		stu.name as studentName,
+		stu.sex as sex,
+		stu.height as height,
+		stu.school as school,
+		stu.phone as phone,
+		stu.birth_date as birthDate,
+		stu.address as address,
+		stu.image as image,
+		stu.parent_name as parentName,
+		stu.parent_sex as parentSex,
+		stu.parent_phone as parentPhone,
+		stu.parent_wx as parentWx
+	</sql>
+	
+	<sql id="courseSelectFields">
+		cou.name as courseName,
+		cou.level as courseLevel,
+		cou.phase as phase,
+		cou.age_grade_start as ageGradeStart,
+		cou.age_grade_end as ageGradeEnd,
+		cou.number_per_term as numberPerTerm,
+		cou.price_per_term	as pricePerTerm
+	</sql>
 	<sql id="queryCondition">
 		<where>
-			<if test="id != null and id != ''">
-				and reg.id = #{id,jdbcType=VARCHAR}
+			<if test="criteria.id != null and criteria.id != ''">
+				and reg.id = #{criteria.id,jdbcType=VARCHAR}
 			</if>
-			<if test="code != null and code != ''">
-				and code like '%' ||
-				#{code,jdbcType=VARCHAR} || '%'
+			<if test="criteria.studentCode != null and criteria.studentCode != ''">
+				and stu.code like concat(concat('%',#{studentCode,jdbcType=VARCHAR}), '%')
 			</if>
-			<if test="name != null and name != ''">
-				and name like '%' ||
-				#{name,jdbcType=VARCHAR} || '%'
+			<if test="criteria.studentName != null and criteria.studentName != ''">
+				and stu.name like concat(concat('%', #{criteria.studentName,jdbcType=VARCHAR}), '%')
 			</if>
-			<if test="sex != null and sex != ''">
-				and sex = #{sex,jdbcType=TINYINT}
+			<if test="criteria.school != null and criteria.school != ''">
+				and stu.school like concat(concat('%', #{criteria.school,jdbcType=VARCHAR}), '%')
 			</if>
 			
 		</where>
 	</sql>
+	
+	<sql id="insertValues">
+		<trim prefix="values(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="registerDate != null and registerDate != ''">
+				#{registerDate,jdbcType=DATE},
+			</if>
+			<if test="studentId != null and studentId != ''">
+				#{studentId,jdbcType=VARCHAR},
+			</if>
+			<if test="courseId != null and courseId != ''">
+				#{courseId,jdbcType=VARCHAR},
+			</if>
+			<if test="periods != null ">
+				#{periods,jdbcType=INTEGER},
+			</if>
+			<if test="totalSections != totalSections">
+				#{totalSections,jdbcType=INTEGER},
+			</if>
+			<if test="attachSections != null ">
+				#{attachSections,jdbcType=INTEGER},
+			</if>
+			<if test="totalFee != null">
+				#{totalFee,jdbcType=INTEGER},
+			</if>
+			<if test="payoff != null ">
+				#{payoff,jdbcType=INTEGER},
+			</if>
+			<if test="paymentMode != null and paymentMode != ''">
+				#{paymentMode,jdbcType=VARCHAR},
+			</if>
+			<if test="paymentDate != null ">
+				#{paymentDate,jdbcType=DATE},
+			</if>
+			<if test="memo != null and memo != ''">
+				#{memo,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null and status != ''">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUser != null and createUser != ''">
+				#{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null and updateUser != ''">
+				#{updateUser,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</sql>
+	
+	<sql id="insertFields">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				id,
+			</if>
+			<if test="registerDate != null">
+				register_date,
+			</if>
+			<if test="studentId != null and studentId != ''">
+				student_id,
+			</if>
+			<if test="courseId != null and courseId != ''">
+				course_id,
+			</if>
+			<if test="periods != null ">
+				periods,
+			</if>
+			<if test="totalSections != null ">
+				total_sections,
+			</if>
+			<if test="attachSections != null ">
+				attach_sections,
+			</if>
+			<if test="totalFee != null ">
+				total_fee,
+			</if>
+			<if test="payoff != null">
+				payoff,
+			</if>
+			<if test="paymentMode != null and paymentMode != ''">
+				payment_mode,
+			</if>
+			<if test="paymentDate != null ">
+				payment_date,
+			</if>
+			<if test="memo != null and memo != ''">
+				memo,
+			</if>
+			<if test="status != null and status != ''">
+				status,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="createUser != null and createUser != ''">
+				create_user,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="updateUser != null and updateUser != ''">
+				update_user,
+			</if>
+			
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim prefix="values(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="registerDate != null">
+				#{registerDate,jdbcType=DATE},
+			</if>
+			<if test="studentId != null and studentId != ''">
+				#{studentId,jdbcType=VARCHAR},
+			</if>
+			<if test="courseId != null and courseId != ''">
+				#{courseId,jdbcType=VARCHAR},
+			</if>
+			<if test="periods != null ">
+				#{periods,jdbcType=INTEGER},
+			</if>
+			<if test="totalSections != null ">
+				#{totalSections,jdbcType=INTEGER},
+			</if>
+			<if test="attachSections != null ">
+				#{attachSections,jdbcType=INTEGER},
+			</if>
+			<if test="totalFee != null ">
+				#{totalFee,jdbcType=INTEGER},
+			</if>
+			<if test="payoff != null">
+				#{payoff,jdbcType=INTEGER},
+			</if>
+			<if test="paymentMode != null and paymentMode != ''">
+				#{paymentMode,jdbcType=VARCHAR},
+			</if>
+			<if test="paymentDate != null ">
+				#{paymentDate,jdbcType=DATE}
+			</if>
+			<if test="memo != null and memo != ''">
+				#{memo,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null and status != ''">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUser != null and createUser != ''">
+				#{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null and updateUser != ''">
+				#{updateUser,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</sql>
+	
+	<!-- 查询,支持分页查询 -->
+	<select id="queryRegistions" parameterType="java.util.Map"
+		resultType="com.sunjoy.trm.bizcore.dao.dto.RegistionDto">
+		<include refid="selectFields" />,
+		<include refid="studentSelectFields" />,
+		<include refid="courseSelectFields"/>
+		from biz.registion reg
+		inner join  mas.student stu on reg.student_id=stu.id
+		inner join mas.course cou on reg.course_id=cou.id
+		<include refid="queryCondition" />
+		order by create_time desc
+		<if test="page != null ">
+			limit ${page.pageSize} offset ${page.pageSize}*(${page.currentPage}-1)
+		</if>
+	</select>
+	<!-- 取学员表的记录数 -->
+	<select id="queryRegistionsCount" parameterType="com.sunjoy.trm.bizcore.dao.criteria.RegistionsCriteria"
+		resultType="java.lang.Long">
+		select count(1) 
+		from biz.registion reg
+		inner join  mas.student stu on reg.student_id=stu.id
+		inner join mas.course cou on reg.course_id=cou.id
+		<include refid="queryCondition"/>
+	</select>
+	<insert id="addRegistion" parameterType="com.sunjoy.trm.bizcore.dao.entity.Registion">
+		insert into biz.registion
+		<include refid="insertFields" />
+		<include refid="insertValues" />
+	</insert>
+	
+	<select id="selectOneByPrimaryKey" parameterType="java.lang.String"
+		resultType="com.sunjoy.trm.bizcore.dao.entity.RegistionDto">
+		<include refid="selectFields" />
+		from biz.registion reg
+		inner join  mas.student stu on reg.student_id=stu.id
+		inner join mas.course cou on reg.course_id=cou.id
+		where reg.id = #{id}
+	</select>
+	
+	<update id="updateRegistion" parameterType="com.sunjoy.trm.bizcore.dao.entity.Registion">
+		update biz.registion
+		<set>
+			
+			<if test="registerDate != null ">
+				register_date = #{registerDate,jdbcType=DATE},
+			</if>
+			<if test="studentId != null and studentId != ''">
+				student_id = #{studentId,jdbcType=VARCHAR},
+			</if>
+			<if test="courseId != null and courseId!=''">
+				course_id = #{courseId,jdbcType=VARCHAR},
+			</if>
+			<if test="periods != null">
+				periods = #{periods,jdbcType=INTEGER},
+			</if>
+			<if test="totalSections != null ">
+				total_sections = #{totalSections,jdbcType=INTEGER},
+			</if>
+			<if test="attachSections != null ">
+				attach_sections = #{attachSections,jdbcType=INTEGER},
+			</if>
+			<if test="totalFee != null">
+				total_fee = #{totalFee,jdbcType=INTEGER},
+			</if>
+			<if test="payoff != null ">
+				payoff = #{payoff,jdbcType=INTEGER},
+			</if>
+			<if test="paymentMode != null and paymentMode != ''">
+				payment_mode = #{paymentMode,jdbcType=VARCHAR},
+			</if>
+			<if test="paymentDate != null">
+				payment_date = #{paymentDate,jdbcType=DATE},
+			</if>
+			<if test="memo != null and memo != ''">
+				memo = #{memo,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null">
+				update_user = #{updateUser,jdbcType=VARCHAR},
+			</if>
+			
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
 </mapper>

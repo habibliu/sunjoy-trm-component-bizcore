@@ -1,9 +1,9 @@
 package com.sunjoy.trm.bizcore.service;
 
-import java.util.List;
-
 import com.sunjoy.framework.dao.paging.Page;
+import com.sunjoy.framework.dao.paging.PageInfo;
 import com.sunjoy.trm.bizcore.dao.criteria.RegistionCriteria;
+import com.sunjoy.trm.bizcore.dao.dto.RegistionDto;
 import com.sunjoy.trm.bizcore.dao.entity.Registion;
 
 /**
@@ -15,16 +15,9 @@ public interface IRegistionService {
 	/**
 	 * 分页查询
 	 */
-	public Page<Registion> queryByPage(RegistionCriteria criteria);
+	public Page<RegistionDto> query(RegistionCriteria criteria,PageInfo page);
 
-	/**
-	 * 不分页查询
-	 * 
-	 * @param criteria
-	 * @return
-	 */
-	public List<Registion> query(RegistionCriteria criteria);
-
+	
 	/**
 	 * 更新注册资料
 	 * 
@@ -54,5 +47,5 @@ public interface IRegistionService {
 	 * @param id
 	 * @return
 	 */
-	public Registion get(String id);
+	public RegistionDto get(String id);
 }

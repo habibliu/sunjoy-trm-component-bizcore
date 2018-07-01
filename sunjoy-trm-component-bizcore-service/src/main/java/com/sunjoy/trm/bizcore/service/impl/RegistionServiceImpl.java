@@ -2,11 +2,15 @@ package com.sunjoy.trm.bizcore.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sunjoy.framework.dao.paging.Page;
+import com.sunjoy.framework.dao.paging.PageInfo;
+import com.sunjoy.trm.bizcore.dao.RegistionDao;
 import com.sunjoy.trm.bizcore.dao.criteria.RegistionCriteria;
+import com.sunjoy.trm.bizcore.dao.dto.RegistionDto;
 import com.sunjoy.trm.bizcore.dao.entity.Registion;
 import com.sunjoy.trm.bizcore.service.IRegistionService;
 
@@ -18,18 +22,20 @@ import com.sunjoy.trm.bizcore.service.IRegistionService;
 @Service(value="registionService")
 @Transactional
 public class RegistionServiceImpl implements IRegistionService{
-
+	
+	@Autowired
+	private RegistionDao registionDao;
+	
 	@Override
-	public Page<Registion> queryByPage(RegistionCriteria criteria) {
-		// TODO Auto-generated method stub
-		return null;
+	public Page<RegistionDto> query(RegistionCriteria criteria,PageInfo page) {
+		Page<RegistionDto> returnPage=new Page<RegistionDto>(page);
+		List<RegistionDto> results=registionDao.queryRegistions(criteria, page);
+		long count=this.registionDao.getRegistionTotalCount(criteria);
+		returnPage.setRows(results);
+		returnPage.setCount(count);
+		return returnPage;
 	}
 
-	@Override
-	public List<Registion> query(RegistionCriteria criteria) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public Registion update(Registion student) {
@@ -50,7 +56,7 @@ public class RegistionServiceImpl implements IRegistionService{
 	}
 
 	@Override
-	public Registion get(String id) {
+	public RegistionDto get(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
