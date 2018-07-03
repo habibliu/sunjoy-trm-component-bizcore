@@ -65,62 +65,7 @@
 		</where>
 	</sql>
 	
-	<sql id="insertValues">
-		<trim prefix="values(" suffix=")" suffixOverrides=",">
-			<if test="id != null and id != ''">
-				#{id,jdbcType=VARCHAR},
-			</if>
-			<if test="registerDate != null and registerDate != ''">
-				#{registerDate,jdbcType=DATE},
-			</if>
-			<if test="studentId != null and studentId != ''">
-				#{studentId,jdbcType=VARCHAR},
-			</if>
-			<if test="courseId != null and courseId != ''">
-				#{courseId,jdbcType=VARCHAR},
-			</if>
-			<if test="periods != null ">
-				#{periods,jdbcType=INTEGER},
-			</if>
-			<if test="totalSections != totalSections">
-				#{totalSections,jdbcType=INTEGER},
-			</if>
-			<if test="attachSections != null ">
-				#{attachSections,jdbcType=INTEGER},
-			</if>
-			<if test="totalFee != null">
-				#{totalFee,jdbcType=INTEGER},
-			</if>
-			<if test="payoff != null ">
-				#{payoff,jdbcType=INTEGER},
-			</if>
-			<if test="paymentMode != null and paymentMode != ''">
-				#{paymentMode,jdbcType=VARCHAR},
-			</if>
-			<if test="paymentDate != null ">
-				#{paymentDate,jdbcType=DATE},
-			</if>
-			<if test="memo != null and memo != ''">
-				#{memo,jdbcType=VARCHAR},
-			</if>
-			<if test="status != null and status != ''">
-				#{status,jdbcType=VARCHAR},
-			</if>
-			<if test="createTime != null">
-				#{createTime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="createUser != null and createUser != ''">
-				#{createUser,jdbcType=VARCHAR},
-			</if>
-			<if test="updateTime != null">
-				#{updateTime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="updateUser != null and updateUser != ''">
-				#{updateUser,jdbcType=VARCHAR},
-			</if>
-		</trim>
-	</sql>
-	
+
 	<sql id="insertFields">
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null and id != ''">
@@ -210,7 +155,7 @@
 				#{paymentMode,jdbcType=VARCHAR},
 			</if>
 			<if test="paymentDate != null ">
-				#{paymentDate,jdbcType=DATE}
+				#{paymentDate,jdbcType=DATE},
 			</if>
 			<if test="memo != null and memo != ''">
 				#{memo,jdbcType=VARCHAR},
@@ -249,7 +194,7 @@
 		</if>
 	</select>
 	<!-- 取学员表的记录数 -->
-	<select id="queryRegistionsCount" parameterType="com.sunjoy.trm.bizcore.dao.criteria.RegistionsCriteria"
+	<select id="queryRegistionsCount" parameterType="com.sunjoy.trm.bizcore.dao.criteria.RegistionCriteria"
 		resultType="java.lang.Long">
 		select count(1) 
 		from biz.registion reg
@@ -264,7 +209,7 @@
 	</insert>
 	
 	<select id="selectOneByPrimaryKey" parameterType="java.lang.String"
-		resultType="com.sunjoy.trm.bizcore.dao.entity.RegistionDto">
+		resultType="com.sunjoy.trm.bizcore.dao.dto.RegistionDto">
 		<include refid="selectFields" />
 		from biz.registion reg
 		inner join  mas.student stu on reg.student_id=stu.id

@@ -25,8 +25,6 @@ public abstract class AbstractUnitTestSupport {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	// @Autowired
-	// private SuperviserServiceImpl superviserServiceImpl;
 
 	protected MockMvc mockMvc;
 

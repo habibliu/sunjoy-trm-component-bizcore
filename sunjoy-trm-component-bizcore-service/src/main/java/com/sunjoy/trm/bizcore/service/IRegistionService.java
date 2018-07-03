@@ -24,7 +24,7 @@ public interface IRegistionService {
 	 * @param student
 	 * @return
 	 */
-	public Registion update(Registion student);
+	public Registion update(RegistionDto student);
 
 	/**
 	 * 新增注册记录
@@ -32,7 +32,7 @@ public interface IRegistionService {
 	 * @param student
 	 * @return
 	 */
-	public Registion add(Registion student);
+	public Registion add(RegistionDto student);
 
 	/**
 	 * 根据主键删除注册记录(逻辑删除)

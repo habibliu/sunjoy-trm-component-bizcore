@@ -3,6 +3,8 @@ package com.sunjoy.trm.bizcore.dao.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.sunjoy.trm.bizcore.dao.criteria.RegistionCriteria;
 import com.sunjoy.trm.bizcore.dao.dto.RegistionDto;
 import com.sunjoy.trm.bizcore.dao.entity.Registion;
@@ -41,7 +43,7 @@ public interface RegistionMapper{
 	 * @param pk
 	 * @return
 	 */
-	RegistionDto selectOneByPrimaryKey(String pk);
+	RegistionDto selectOneByPrimaryKey(@Param("id") String id);
 	
 	/**
 	 * 根据主键更新课程注册记录

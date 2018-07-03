@@ -48,7 +48,7 @@ public class Registion  extends BaseEntity{
 	/**
 	 * 是否已支付
 	 */
-	private boolean payoff;
+	private Integer payoff;
 	/**
 	 * 支付方式
 	 */
@@ -113,10 +113,10 @@ public class Registion  extends BaseEntity{
 	public void setTotalFee(Integer totalFee) {
 		this.totalFee = totalFee;
 	}
-	public boolean isPayoff() {
+	public Integer isPayoff() {
 		return payoff;
 	}
-	public void setPayoff(boolean payoff) {
+	public void setPayoff(Integer payoff) {
 		this.payoff = payoff;
 	}
 	public String getPaymentMode() {

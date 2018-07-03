@@ -12,7 +12,7 @@
 
 	<modules>
 		<module>sunjoy-trm-component-bizcore-service</module>
-	
+
 	</modules>
 
 	<parent>
@@ -50,6 +50,12 @@
 				<artifactId>sunjoy-common-base</artifactId>
 				<version>${sunjoy.common.version}</version>
 			</dependency>
+			<!-- 基础依赖模块 -->
+			<dependency>
+				<groupId>com.sunjoy.trm</groupId>
+				<artifactId>sunjoy-trm-component-master-service</artifactId>
+				<version>${sunjoy.common.version}</version>
+			</dependency>
 
 			<dependency>
 				<groupId>com.alibaba</groupId>
@@ -84,17 +90,7 @@
 		</repository>
 	</repositories>
 
-<!-- 
-	<distributionManagement>
-		<repository>
-			<id>nexus-releases</id>
-			<url>http://192.168.0.237:8081/nexus/content/repositories/releases</url>
-		</repository>
-
-		<snapshotRepository>
-			<id>nexus-snapshots</id>
-			<url>http://192.168.0.237:8081/nexus/content/repositories/snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
-	 -->
+	<!-- <distributionManagement> <repository> <id>nexus-releases</id> <url>http://192.168.0.237:8081/nexus/content/repositories/releases</url> 
+		</repository> <snapshotRepository> <id>nexus-snapshots</id> <url>http://192.168.0.237:8081/nexus/content/repositories/snapshots</url> 
+		</snapshotRepository> </distributionManagement> -->
 </project>
