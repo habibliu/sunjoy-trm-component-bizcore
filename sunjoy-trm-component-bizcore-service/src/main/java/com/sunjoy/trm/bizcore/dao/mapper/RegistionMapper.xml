@@ -53,7 +53,7 @@
 				and reg.id = #{criteria.id,jdbcType=VARCHAR}
 			</if>
 			<if test="criteria.studentCode != null and criteria.studentCode != ''">
-				and stu.code like concat(concat('%',#{studentCode,jdbcType=VARCHAR}), '%')
+				and stu.code like concat(concat('%',#{criteria.studentCode,jdbcType=VARCHAR}), '%')
 			</if>
 			<if test="criteria.studentName != null and criteria.studentName != ''">
 				and stu.name like concat(concat('%', #{criteria.studentName,jdbcType=VARCHAR}), '%')
@@ -188,13 +188,13 @@
 		inner join  mas.student stu on reg.student_id=stu.id
 		inner join mas.course cou on reg.course_id=cou.id
 		<include refid="queryCondition" />
-		order by create_time desc
+		order by reg.create_time desc
 		<if test="page != null ">
 			limit ${page.pageSize} offset ${page.pageSize}*(${page.currentPage}-1)
 		</if>
 	</select>
 	<!-- 取学员表的记录数 -->
-	<select id="queryRegistionsCount" parameterType="com.sunjoy.trm.bizcore.dao.criteria.RegistionCriteria"
+	<select id="queryRegistionsCount" parameterType="java.util.Map"
 		resultType="java.lang.Long">
 		select count(1) 
 		from biz.registion reg

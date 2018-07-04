@@ -29,7 +29,7 @@ public interface RegistionMapper{
 	 * @param criteria
 	 * @return
 	 */
-	Long queryRegistionsCount(RegistionCriteria criteria);
+	Long queryRegistionsCount(Map<String,Object> params);
 	
 	/**
 	 * 新增课程注册记录

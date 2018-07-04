@@ -41,7 +41,6 @@ public class RegistionDao extends BaseDao<RegistionMapper, Registion>{
 	 * @return
 	 */
 	public List<RegistionDto> queryRegistions(RegistionCriteria criteria,PageInfo page) {
-		BeanUtils.checkEmptyFields(criteria,"currentPage","pageSize");
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("criteria", criteria);
 		params.put("page", page);
@@ -55,7 +54,9 @@ public class RegistionDao extends BaseDao<RegistionMapper, Registion>{
 	 * @return
 	 */
 	public long getRegistionTotalCount(RegistionCriteria criteria) {
-		return this.getMapper().queryRegistionsCount(criteria);
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("criteria", criteria);
+		return this.getMapper().queryRegistionsCount(params);
 	}
 
 	

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sunjoy.common.exception.CommonException;
 import com.sunjoy.common.utils.BeanUtils;
 import com.sunjoy.common.utils.RandomUtils;
 import com.sunjoy.framework.dao.paging.Page;
@@ -16,10 +15,8 @@ import com.sunjoy.trm.bizcore.dao.criteria.RegistionCriteria;
 import com.sunjoy.trm.bizcore.dao.dto.RegistionDto;
 import com.sunjoy.trm.bizcore.dao.entity.Registion;
 import com.sunjoy.trm.bizcore.service.IRegistionService;
-import com.sunjoy.trm.master.dao.criteria.StudentCriteria;
 import com.sunjoy.trm.master.dao.entity.Student;
 import com.sunjoy.trm.master.service.IStudentService;
-import com.sunjoy.trm.master.utils.ExceptionConstant;
 
 /**
  * 课程注册服务实现类
