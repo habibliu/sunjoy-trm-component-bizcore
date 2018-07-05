@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import com.sunjoy.trm.bizcore.dao.criteria.RegistionCriteria;
 import com.sunjoy.trm.bizcore.dao.dto.RegistionDto;
 import com.sunjoy.trm.bizcore.dao.entity.Registion;
+import com.sunjoy.trm.master.dao.entity.Student;
 
 /**
  * 课程注册MAPPER接口
@@ -51,4 +52,11 @@ public interface RegistionMapper{
 	 * @return
 	 */
 	int updateRegistion(Registion registion);
+	
+	/**
+	 * 取课程的报名学生
+	 * @param courseId
+	 * @return
+	 */
+	List<Student> getCourseStudents(@Param("courseId") String courseId);
 }
