@@ -59,4 +59,11 @@ public interface RegistionMapper{
 	 * @return
 	 */
 	List<Student> getCourseStudents(@Param("courseId") String courseId);
+	
+	/**
+	 * 删除注册记录
+	 * @param id
+	 * @return
+	 */
+	int deleteRegistion(@Param("id") String id);
 }

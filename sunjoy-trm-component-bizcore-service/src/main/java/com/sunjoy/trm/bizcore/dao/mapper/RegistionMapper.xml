@@ -275,4 +275,9 @@
 		inner join biz.registion reg on reg.student_id=stu.id
 		where reg.course_id=#{courseId}
 	</select>
+	
+	<delete id="deleteRegistion" parameterType="java.lang.String">
+		<!-- 只有状态为草稿的注册记录可以删除 -->
+		delete from biz.registion where id=#{id} and status='DRAFT'
+	</delete>
 </mapper>
