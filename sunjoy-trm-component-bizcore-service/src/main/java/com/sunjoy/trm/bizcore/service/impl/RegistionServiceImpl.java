@@ -103,4 +103,9 @@ public class RegistionServiceImpl implements IRegistionService {
 		return this.registionDao.selectOneByPrimaryKey(id);
 	}
 
+	@Override
+	public List<Student> getCourseStudents(String courseId) {
+		return this.registionDao.getCourseStudents(courseId);
+	}
+
 }

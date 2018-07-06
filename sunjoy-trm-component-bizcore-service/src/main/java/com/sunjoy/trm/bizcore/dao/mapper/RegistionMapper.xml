@@ -23,6 +23,7 @@
 	</sql>
 	
 	<sql id="studentSelectFields">
+		stu.id as studentId,
 		stu.code as studentCode,
 		stu.name as studentName,
 		stu.sex as sex,
@@ -267,4 +268,11 @@
 		</set>
 		where id = #{id,jdbcType=VARCHAR}
 	</update>
+	
+	<select id="getCourseStudents" resultType="com.sunjoy.trm.master.dao.entity.Student">
+		select <include refid="studentSelectFields"/>
+		from mas.student stu
+		inner join biz.registion reg on reg.student_id=stu.id
+		where reg.course_id=#{courseId}
+	</select>
 </mapper>

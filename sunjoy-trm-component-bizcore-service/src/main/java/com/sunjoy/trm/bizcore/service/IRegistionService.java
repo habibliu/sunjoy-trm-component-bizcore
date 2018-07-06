@@ -1,10 +1,13 @@
 package com.sunjoy.trm.bizcore.service;
 
+import java.util.List;
+
 import com.sunjoy.framework.dao.paging.Page;
 import com.sunjoy.framework.dao.paging.PageInfo;
 import com.sunjoy.trm.bizcore.dao.criteria.RegistionCriteria;
 import com.sunjoy.trm.bizcore.dao.dto.RegistionDto;
 import com.sunjoy.trm.bizcore.dao.entity.Registion;
+import com.sunjoy.trm.master.dao.entity.Student;
 
 /**
  * 课程注册服务接口
@@ -48,4 +51,11 @@ public interface IRegistionService {
 	 * @return
 	 */
 	public RegistionDto get(String id);
+	
+	/**
+	 * 查询课程注册的学员
+	 * @param courseId
+	 * @return
+	 */
+	public List<Student> getCourseStudents(String courseId);
 }
