@@ -1,5 +1,6 @@
 package com.sunjoy.trm.bizcore.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import com.sunjoy.trm.bizcore.dao.RegistionDao;
 import com.sunjoy.trm.bizcore.dao.criteria.RegistionCriteria;
 import com.sunjoy.trm.bizcore.dao.dto.RegistionDto;
 import com.sunjoy.trm.bizcore.dao.entity.Registion;
+import com.sunjoy.trm.bizcore.enums.RegistionStatus;
 import com.sunjoy.trm.bizcore.service.IRegistionService;
 import com.sunjoy.trm.master.dao.entity.Student;
 import com.sunjoy.trm.master.service.IStudentService;
@@ -66,6 +68,8 @@ public class RegistionServiceImpl implements IRegistionService {
 
 	@Override
 	public Registion add(RegistionDto registionDto) {
+		//先设置一个学员ID
+		registionDto.setStudentId(RandomUtils.createUUID());
 		// 先保存学党信息
 		Student student = new Student();
 		BeanUtils.copyProperties(registionDto, student);
@@ -79,6 +83,10 @@ public class RegistionServiceImpl implements IRegistionService {
 		Registion registion = new Registion();
 		BeanUtils.copyProperties(registionDto, registion);
 		registion.setId(RandomUtils.createUUID());
+		if(registion.getRegisterDate()==null){
+			registion.setRegisterDate(new Date());
+		}
+		registion.setStatus(RegistionStatus.DRAFT.getValue());
 		this.registionDao.addRegistion(registion);
 		return registion;
 	}
