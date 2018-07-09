@@ -16,6 +16,7 @@ import com.sunjoy.framework.dao.BaseDao;
 import com.sunjoy.framework.dao.paging.PageInfo;
 import com.sunjoy.trm.bizcore.dao.criteria.RegistionCriteria;
 import com.sunjoy.trm.bizcore.dao.dto.RegistionDto;
+import com.sunjoy.trm.bizcore.dao.dto.ScheduleStudentDto;
 import com.sunjoy.trm.bizcore.dao.entity.Registion;
 import com.sunjoy.trm.bizcore.dao.mapper.RegistionMapper;
 import com.sunjoy.trm.master.dao.entity.Student;
@@ -75,7 +76,7 @@ public class RegistionDao extends BaseDao<RegistionMapper, Registion>{
 		return this.getMapper().selectOneByPrimaryKey(uuid);
 	}
 
-	public List<Student> getCourseStudents(String courseId){
+	public List<ScheduleStudentDto> getCourseStudents(String courseId){
 		
 		return this.getMapper().getCourseStudents(courseId);
 	}

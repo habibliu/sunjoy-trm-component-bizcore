@@ -48,6 +48,24 @@
 		cou.number_per_term as numberPerTerm,
 		cou.price_per_term	as pricePerTerm
 	</sql>
+	
+	<sql id="realStudentSelectFields">
+		stu.id as id,
+		stu.code as code,
+		stu.name as name,
+		stu.sex as sex,
+		stu.height as height,
+		stu.school as school,
+		stu.phone as phone,
+		stu.birth_date as birthDate,
+		stu.address as address,
+		stu.image as image,
+		stu.parent_name as parentName,
+		stu.parent_sex as parentSex,
+		stu.parent_phone as parentPhone,
+		stu.parent_wx as parentWx
+	</sql>
+	
 	<sql id="queryCondition">
 		<where>
 			<if test="criteria.id != null and criteria.id != ''">
@@ -269,10 +287,13 @@
 		where id = #{id,jdbcType=VARCHAR}
 	</update>
 	
-	<select id="getCourseStudents" resultType="com.sunjoy.trm.master.dao.entity.Student">
-		select <include refid="studentSelectFields"/>
+	<select id="getCourseStudents" resultType="com.sunjoy.trm.master.dao.dto.ScheduleStudentDto">
+		select stu.id,stu.code,stu.name,stu.phone,reg.total_sections as totalSections,
+			case when arr.arraged_sections is null then 0 else arr.arranged_sections end as arrangedSections
 		from mas.student stu
 		inner join biz.registion reg on reg.student_id=stu.id
+		left join (select course_id,student_id,count(0) as arraged_sections from biz.shift_results 
+			group by course_id,student_id) arr on arr.course_id=reg.course_id and arr.student_id=reg.student_id
 		where reg.course_id=#{courseId}
 	</select>
 	

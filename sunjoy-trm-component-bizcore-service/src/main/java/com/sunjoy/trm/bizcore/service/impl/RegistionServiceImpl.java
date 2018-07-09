@@ -14,6 +14,7 @@ import com.sunjoy.framework.dao.paging.PageInfo;
 import com.sunjoy.trm.bizcore.dao.RegistionDao;
 import com.sunjoy.trm.bizcore.dao.criteria.RegistionCriteria;
 import com.sunjoy.trm.bizcore.dao.dto.RegistionDto;
+import com.sunjoy.trm.bizcore.dao.dto.ScheduleStudentDto;
 import com.sunjoy.trm.bizcore.dao.entity.Registion;
 import com.sunjoy.trm.bizcore.enums.RegistionStatus;
 import com.sunjoy.trm.bizcore.service.IRegistionService;
@@ -104,7 +105,7 @@ public class RegistionServiceImpl implements IRegistionService {
 	}
 
 	@Override
-	public List<Student> getCourseStudents(String courseId) {
+	public List<ScheduleStudentDto> getCourseStudents(String courseId) {
 		return this.registionDao.getCourseStudents(courseId);
 	}
 
