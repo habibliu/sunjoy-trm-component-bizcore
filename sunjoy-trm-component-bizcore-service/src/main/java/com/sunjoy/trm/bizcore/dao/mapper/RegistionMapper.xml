@@ -42,7 +42,7 @@
 	<sql id="courseSelectFields">
 		cou.name as courseName,
 		cou.level as courseLevel,
-		cou.phase as phase,
+		cou.phase as coursePhase,
 		cou.age_grade_start as ageGradeStart,
 		cou.age_grade_end as ageGradeEnd,
 		cou.number_per_term as numberPerTerm,
@@ -287,7 +287,7 @@
 		where id = #{id,jdbcType=VARCHAR}
 	</update>
 	
-	<select id="getCourseStudents" resultType="com.sunjoy.trm.master.dao.dto.ScheduleStudentDto">
+	<select id="getCourseStudents" resultType="com.sunjoy.trm.bizcore.dao.dto.ScheduleStudentDto">
 		select stu.id,stu.code,stu.name,stu.phone,reg.total_sections as totalSections,
 			case when arr.arraged_sections is null then 0 else arr.arranged_sections end as arrangedSections
 		from mas.student stu

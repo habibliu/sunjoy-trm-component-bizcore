@@ -21,9 +21,9 @@ public class RegistionDto extends Registion{
 	private String parentPhone;
 	private String parentWx;
 	//课程属性
-	private String name;//课程名
-	private Integer level;//级别
-	private Integer phase;//阶段
+	private String courseName;//课程名
+	private Integer courseLevel;//级别
+	private Integer coursePhase;//阶段
 	private Integer ageGradeStart;//年龄阶段开始
 	private Integer ageGradeEnd;//年龄阶段结束
 	private Integer numberPerTerm;//每期节数
@@ -106,23 +106,23 @@ public class RegistionDto extends Registion{
 	public void setParentWx(String parentWx) {
 		this.parentWx = parentWx;
 	}
-	public String getName() {
-		return name;
+	public String getCourseName() {
+		return courseName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setCourseName(String name) {
+		this.courseName = name;
 	}
-	public Integer getLevel() {
-		return level;
+	public Integer getCourseLevel() {
+		return courseLevel;
 	}
-	public void setLevel(Integer level) {
-		this.level = level;
+	public void setCourseLevel(Integer level) {
+		this.courseLevel = level;
 	}
-	public Integer getPhase() {
-		return phase;
+	public Integer getCoursePhase() {
+		return coursePhase;
 	}
-	public void setPhase(Integer phase) {
-		this.phase = phase;
+	public void setCoursePhase(Integer phase) {
+		this.coursePhase = phase;
 	}
 	public Integer getAgeGradeStart() {
 		return ageGradeStart;
