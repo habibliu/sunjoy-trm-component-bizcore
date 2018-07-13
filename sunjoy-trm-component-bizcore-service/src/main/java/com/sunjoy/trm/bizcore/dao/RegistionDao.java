@@ -11,7 +11,6 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import com.sunjoy.common.utils.BeanUtils;
 import com.sunjoy.framework.dao.BaseDao;
 import com.sunjoy.framework.dao.paging.PageInfo;
 import com.sunjoy.trm.bizcore.dao.criteria.RegistionCriteria;
@@ -19,7 +18,6 @@ import com.sunjoy.trm.bizcore.dao.dto.RegistionDto;
 import com.sunjoy.trm.bizcore.dao.dto.ScheduleStudentDto;
 import com.sunjoy.trm.bizcore.dao.entity.Registion;
 import com.sunjoy.trm.bizcore.dao.mapper.RegistionMapper;
-import com.sunjoy.trm.master.dao.entity.Student;
 
 @Repository
 public class RegistionDao extends BaseDao<RegistionMapper, Registion>{

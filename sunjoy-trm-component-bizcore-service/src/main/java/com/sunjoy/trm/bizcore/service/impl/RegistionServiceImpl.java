@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sunjoy.common.utils.BeanUtils;
-import com.sunjoy.common.utils.RandomUtils;
 import com.sunjoy.framework.dao.paging.Page;
 import com.sunjoy.framework.dao.paging.PageInfo;
+import com.sunjoy.framework.utils.BeanUtils;
+import com.sunjoy.framework.utils.RandomUtils;
 import com.sunjoy.trm.bizcore.dao.RegistionDao;
 import com.sunjoy.trm.bizcore.dao.criteria.RegistionCriteria;
 import com.sunjoy.trm.bizcore.dao.dto.RegistionDto;
