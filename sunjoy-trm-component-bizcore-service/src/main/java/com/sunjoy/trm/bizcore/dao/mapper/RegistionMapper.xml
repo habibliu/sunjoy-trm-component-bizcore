@@ -42,7 +42,7 @@
 	<sql id="courseSelectFields">
 		cou.name as courseName,
 		cou.level as courseLevel,
-		cou.phase as phase,
+		cou.phase as coursePhase,
 		cou.age_grade_start as ageGradeStart,
 		cou.age_grade_end as ageGradeEnd,
 		cou.number_per_term as numberPerTerm,
