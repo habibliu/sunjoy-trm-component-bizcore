@@ -26,7 +26,7 @@
 		<!-- 基础依赖模块 -->
 		<dependency>
 			<groupId>com.sunjoy.trm</groupId>
-			<artifactId>sunjoy-trm-component-master-service</artifactId>
+			 <artifactId>sunjoy-trm-component-master-service</artifactId>
 		</dependency>
 		
 		<dependency>
