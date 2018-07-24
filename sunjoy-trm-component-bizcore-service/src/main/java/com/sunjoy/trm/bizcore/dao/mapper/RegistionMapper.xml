@@ -10,6 +10,7 @@
 		reg.periods as periods,
 		reg.total_sections as totalSections,
 		reg.attach_sections as attachSections,
+		reg.arranged_sections as arrangedSections,
 		reg.total_fee as totalFee,
 		reg.payoff as payoff,
 		reg.payment_mode as paymentMode,
@@ -289,10 +290,10 @@
 	
 	<select id="getCourseStudents" resultType="com.sunjoy.trm.bizcore.dao.dto.ScheduleStudentDto">
 		select stu.id,stu.code,stu.name,stu.phone,reg.total_sections as totalSections,
-			case when arr.arraged_sections is null then 0 else arr.arranged_sections end as arrangedSections
+			case when arr.arranged_sections is null then 0 else arr.arranged_sections end as arrangedSections
 		from mas.student stu
 		inner join biz.registion reg on reg.student_id=stu.id
-		left join (select course_id,student_id,count(0) as arraged_sections from biz.shift_results 
+		left join (select course_id,student_id,count(0) as arranged_sections from biz.shift_results 
 			group by course_id,student_id) arr on arr.course_id=reg.course_id and arr.student_id=reg.student_id
 		where reg.course_id=#{courseId}
 	</select>
