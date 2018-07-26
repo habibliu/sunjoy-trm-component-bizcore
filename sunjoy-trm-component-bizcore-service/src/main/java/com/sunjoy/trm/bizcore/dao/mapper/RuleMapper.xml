@@ -1,5 +1,148 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sunjoy.trm.bizcore.dao.mapper.RuleMapper">
-
+	<sql id="selectFields">
+		ru.id as id,
+		ru.course_id as courseId,
+		ru.subscribe_periods as subscribePeriods,
+		ru.free_sections as freeSections,
+		ru.status as status,
+		ru.memo as memo,
+		ru.create_time as createTime,
+		ru.update_time as updateTime,
+		ru.create_user as createUser,
+		ru.update_time as updateTime
+	</sql>
+	<sql id="queryCondition">
+		<where>
+			<if test="criteria.id != null and criteria.id != ''">
+				and ru.id = #{criteria.id,jdbcType=VARCHAR}
+			</if>
+			<if test="criteria.courseName != null and criteria.courseName != ''">
+				and co.name like concat(concat('%',#{criteria.courseName,jdbcType=VARCHAR}), '%')
+			</if>
+		</where>
+	</sql>
+	<sql id="insertFields">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				id,
+			</if>
+			<if test="courseId != null and courseId != ''">
+				course_id,
+			</if>
+			<if test="subscribePeriods != null ">
+				subscribe_periods,
+			</if>
+			<if test="freeSections != null ">
+				free_sections,
+			</if>
+			<if test="memo != null and memo != ''">
+				memo,
+			</if>
+			<if test="status != null and status != ''">
+				status,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="createUser != null and createUser != ''">
+				create_user,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="updateUser != null and updateUser != ''">
+				update_user,
+			</if>
+			
+		</trim>
+	</sql>
+	
+	<sql id="insertValues">
+		<trim prefix="values(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="courseId != null and courseId != ''">
+				#{courseId,jdbcType=VARCHAR},
+			</if>
+			<if test="subscribePeriods != null ">
+				#{subscribePeriods,jdbcType=INTEGER},
+			</if>
+			<if test="freeSections != null ">
+				#{freeSections,jdbcType=INTEGER},
+			</if>
+			<if test="memo != null and memo != ''">
+				#{memo,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null and status != ''">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUser != null and createUser != ''">
+				#{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null and updateUser != ''">
+				#{updateUser,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</sql>
+	<!-- 查询,支持分页查询 -->
+	<select id="queryRules" 
+		resultType="com.sunjoy.trm.bizcore.dao.dto.RuleDto">
+		select
+		<include refid="selectFields" />,co.name as courseName
+		from biz.rule ru
+		inner join  mas.course co on ru.course_id=co.id
+		<include refid="queryCondition" />
+		order by ru.create_time desc
+		<if test="page != null ">
+			limit ${page.pageSize} offset ${page.pageSize}*(${page.currentPage}-1)
+		</if>
+	</select>
+	<!-- 取赠送规则的记录数 -->
+	<select id="queryRulesCount" 
+		resultType="java.lang.Long">
+		select count(1) 
+		from biz.rule ru
+		inner join  mas.course co on ru.course_id=co.id
+		<include refid="queryCondition"/>
+	</select>
+	<insert id="addRule" parameterType="com.sunjoy.trm.bizcore.dao.entity.Rule">
+		insert into biz.rule
+		<include refid="insertFields" />
+		<include refid="insertValues" />
+	</insert>
+	<update id="updateRule" parameterType="com.sunjoy.trm.bizcore.dao.entity.Rule">
+		update biz.rule
+		<set>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="courseId != null and courseId != ''">
+				course_id = #{courseId,jdbcType=VARCHAR},
+			</if>
+		
+			<if test="subscribePeriods != null ">
+				subscribe_periods = #{subscribePeriods,jdbcType=SMALLINT},
+			</if>
+			<if test="freeSections != null">
+				free_sections = #{freeSections,jdbcType=INTEGER},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null">
+				update_user = #{updateUser,jdbcType=VARCHAR},
+			</if>
+			
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
 </mapper>

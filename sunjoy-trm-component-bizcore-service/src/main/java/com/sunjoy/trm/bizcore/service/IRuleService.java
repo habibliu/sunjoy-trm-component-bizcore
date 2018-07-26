@@ -3,7 +3,9 @@ package com.sunjoy.trm.bizcore.service;
 import java.util.List;
 
 import com.sunjoy.framework.dao.paging.Page;
+import com.sunjoy.framework.dao.paging.PageInfo;
 import com.sunjoy.trm.bizcore.dao.criteria.RuleCriteria;
+import com.sunjoy.trm.bizcore.dao.dto.RuleDto;
 import com.sunjoy.trm.bizcore.dao.entity.Rule;
 
 /**
@@ -11,11 +13,11 @@ import com.sunjoy.trm.bizcore.dao.entity.Rule;
  * @author liuganchao<740033486@qq.com>
  * @date 2018年6月27日
  */
-public interface IRuleSettingService {
+public interface IRuleService {
 	/**
 	 * 分页查询
 	 */
-	public Page<Rule> queryByPage(RuleCriteria criteria);
+	public Page<RuleDto> queryByPage(RuleCriteria criteria,PageInfo page);
 
 	/**
 	 * 不分页查询

@@ -1,13 +1,8 @@
-package com.sunjoy.trm.bizcore.dao.criteria;
+package com.sunjoy.trm.bizcore.dao.dto;
 
 import com.sunjoy.trm.bizcore.dao.entity.Rule;
 
-/**
- *
- * @author liuganchao<740033486@qq.com>
- * @date 2018年6月27日
- */
-public class RuleCriteria extends Rule{
+public class RuleDto extends Rule{
 	private String courseName;
 
 	public String getCourseName() {
