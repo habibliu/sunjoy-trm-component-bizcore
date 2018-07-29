@@ -293,8 +293,9 @@
 			case when arr.arranged_sections is null then 0 else arr.arranged_sections end as arrangedSections
 		from mas.student stu
 		inner join biz.registion reg on reg.student_id=stu.id
-		left join (select course_id,student_id,count(0) as arranged_sections from biz.shift_results 
-			group by course_id,student_id) arr on arr.course_id=reg.course_id and arr.student_id=reg.student_id
+		left join (select s.course_id,ss.student_id,count(0) as arranged_sections from biz.shift s
+			inner join biz.shift_student ss on s.id=ss.shift_id
+			group by s.course_id,ss.student_id) arr on arr.course_id=reg.course_id and arr.student_id=reg.student_id
 		where reg.course_id=#{courseId}
 	</select>
 	
