@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sunjoy.trm.bizcore.dao.mapper.RegistionMapper">
 	<sql id="selectFields">
-		select
 		reg.id as id,
 		reg.register_date as registerDate,
 		reg.student_id as studentId,
@@ -201,6 +200,7 @@
 	<!-- 查询,支持分页查询 -->
 	<select id="queryRegistions" parameterType="java.util.Map"
 		resultType="com.sunjoy.trm.bizcore.dao.dto.RegistionDto">
+		select
 		<include refid="selectFields" />,
 		<include refid="studentSelectFields" />,
 		<include refid="courseSelectFields"/>
@@ -230,6 +230,7 @@
 	
 	<select id="selectOneByPrimaryKey" parameterType="java.lang.String"
 		resultType="com.sunjoy.trm.bizcore.dao.dto.RegistionDto">
+		select
 		<include refid="selectFields" />
 		from biz.registion reg
 		inner join  mas.student stu on reg.student_id=stu.id
@@ -258,6 +259,9 @@
 			</if>
 			<if test="attachSections != null ">
 				attach_sections = #{attachSections,jdbcType=INTEGER},
+			</if>
+			<if test="arrangedSections != null ">
+				arranged_sections = #{arrangedSections,jdbcType=INTEGER},
 			</if>
 			<if test="totalFee != null">
 				total_fee = #{totalFee,jdbcType=INTEGER},
@@ -303,4 +307,12 @@
 		<!-- 只有状态为草稿的注册记录可以删除 -->
 		delete from biz.registion where id=#{id} and status='DRAFT'
 	</delete>
+	
+	<select id="getRegistion" resultType="com.sunjoy.trm.bizcore.dao.entity.Registion">
+		select
+		<include refid="selectFields"/>
+		from biz.registion reg
+		where reg.course_id=#{courseId} and reg.student_id=#{studentId}
+		limit 1
+	</select>
 </mapper>

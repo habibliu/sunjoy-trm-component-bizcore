@@ -1,5 +1,179 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sunjoy.trm.bizcore.dao.mapper.ShiftMapper">
-
+	<sql id="selectFields">
+		st.id as id,
+		st.train_date as trainDate,
+		st.train_time as trainTime,
+		st.course_id as courseId,
+		st.coach_id as coachId,
+		st.venue_id as venueId,
+		st.status as status,
+		st.create_user as createUser,
+		st.create_time as createTime,
+		st.update_user as updateUser,
+		st.update_time as updateTime
+	</sql>
+	
+	<sql id="insertFields">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				id,
+			</if>
+			<if test="trainDate != null">
+				train_date,
+			</if>
+			<if test="trainTime != null and trainTime != ''">
+				train_time,
+			</if>
+			<if test="courseId != null and courseId != ''">
+				course_id,
+			</if>
+			<if test="coachId != null and coachId != ''">
+				coach_id,
+			</if>
+			<if test="venueId != null and venueId != ''">
+				venue_id,
+			</if>
+			<if test="status != null and status != ''">
+				status,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="createUser != null and createUser != ''">
+				create_user,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="updateUser != null and updateUser != ''">
+				update_user,
+			</if>
+			
+		</trim>
+	</sql>
+	
+	<sql id="insertValues">
+		<trim prefix="values(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="trainDate != null">
+				#{trainDate,jdbcType=DATE},
+			</if>
+			<if test="trainTime != null and trainTime != ''">
+				#{trainTime,jdbcType=VARCHAR},
+			</if>
+			<if test="courseId != null and courseId != ''">
+				#{courseId,jdbcType=VARCHAR},
+			</if>
+			<if test="coachId != null and coachId != ''">
+				#{courseId,jdbcType=VARCHAR},
+			</if>
+			<if test="venueId != null and venueId != ''">
+				#{venueId,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null and status != ''">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUser != null and createUser != ''">
+				#{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null and updateUser != ''">
+				#{updateUser,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</sql>
+	<sql id="queryCondition">
+		<where>
+			<if test="criteria.id != null and criteria.id != ''">
+				and reg.id = #{criteria.id,jdbcType=VARCHAR}
+			</if>
+			<if test="criteria.courseName != null and criteria.courseName != ''">
+				and cou.name like concat(concat('%',#{criteria.courseName,jdbcType=VARCHAR}), '%')
+			</if>
+			<if test="criteria.coachName != null and criteria.coachName != ''">
+				and coa.name like concat(concat('%', #{criteria.coachName,jdbcType=VARCHAR}), '%')
+			</if>
+			<if test="criteria.venueName != null and criteria.venueName != ''">
+				and ven.name like concat(concat('%', #{criteria.venueName,jdbcType=VARCHAR}), '%')
+			</if>
+			
+		</where>
+	</sql>
+	<!-- 查询,支持分页查询 -->
+	<select id="queryShifts" 
+		resultType="com.sunjoy.trm.bizcore.dao.dto.ShiftDto">
+		<include refid="selectFields" />,
+		cou.code as courseCode,cou.name as courseName,
+		coa.name as coachName,
+		ven.name as venueName,
+		ss.student_count as studentCount
+		from biz.shift st
+		left join  mas.course cou on st.course_id=cou.id
+		left join mas.coach coa on st.course_id=coa.id
+		left join mas.venue ven on st.venue_id=ven.id
+		left join (select shift_id,count(0) as student_count from biz.shift_student group by shift_id) ss on ss.shift_id=st.id
+		<include refid="queryCondition" />
+		order by reg.create_time desc
+		<if test="page != null ">
+			limit ${page.pageSize} offset ${page.pageSize}*(${page.currentPage}-1)
+		</if>
+	</select>
+	<!-- 取学员表的记录数 -->
+	<select id="queryShiftsCount" 
+		resultType="java.lang.Long">
+		select count(1) 
+		from biz.shift st
+		left join  mas.course cou on st.course_id=cou.id
+		left join mas.coach coa on st.course_id=coa.id
+		left join mas.venue ven on st.venue_id=ven.id
+		<include refid="queryCondition"/>
+	</select>
+	
+	<insert id="addShift" parameterType="com.sunjoy.trm.bizcore.dao.entity.Shift">
+		insert into biz.shift
+		<include refid="insertFields" />
+		<include refid="insertValues" />
+	</insert>
+	
+	<update id="updateShift" parameterType="com.sunjoy.trm.bizcore.dao.entity.Shift">
+		update biz.rule
+		<set>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="courseId != null and courseId != ''">
+				course_id = #{courseId,jdbcType=VARCHAR},
+			</if>
+			<if test="coachId != null and coachId != ''">
+				coach_id = #{coachId,jdbcType=VARCHAR},
+			</if>
+			<if test="venueId != null and venueId != ''">
+				venue_id = #{venueId,jdbcType=VARCHAR},
+			</if>
+			<if test="trainTime != null and trainTime != ''">
+				train_time = #{trainTime,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null">
+				update_user = #{updateUser,jdbcType=VARCHAR},
+			</if>
+			
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<delete id="deleteShift">
+		delete from biz.shift where id=#{id}
+	</delete>
 </mapper>

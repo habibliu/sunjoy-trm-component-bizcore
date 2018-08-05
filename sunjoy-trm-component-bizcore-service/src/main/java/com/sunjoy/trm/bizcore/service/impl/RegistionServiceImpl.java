@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sunjoy.framework.dao.paging.Page;
 import com.sunjoy.framework.dao.paging.PageInfo;
+import com.sunjoy.framework.exception.CommonException;
 import com.sunjoy.framework.utils.BeanUtils;
 import com.sunjoy.framework.utils.RandomUtils;
 import com.sunjoy.trm.bizcore.dao.RegistionDao;
@@ -107,6 +108,21 @@ public class RegistionServiceImpl implements IRegistionService {
 	@Override
 	public List<ScheduleStudentDto> getCourseStudents(String courseId) {
 		return this.registionDao.getCourseStudents(courseId);
+	}
+
+	@Override
+	public void increaseArrangedSections(String courseId, String studentId) {
+		Registion reg=this.registionDao.getRegistion(courseId, studentId);
+		if(reg==null) {
+			throw new CommonException("该学员未报名!");
+		}
+		int arrangedSections=reg.getArrangedSections()==null?0:reg.getArrangedSections();
+		arrangedSections++;
+		if(arrangedSections>reg.getTotalSections()) {
+			throw new CommonException("安排的节数不能大于学员总节数!");
+		}
+		reg.setArrangedSections(arrangedSections);
+		this.registionDao.updateRegistion(reg);
 	}
 
 }

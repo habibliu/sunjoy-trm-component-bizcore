@@ -65,4 +65,12 @@ public interface RegistionMapper{
 	 * @return
 	 */
 	int deleteRegistion(@Param("id") String id);
+	
+	/**
+	 * 
+	 * @param courseId
+	 * @param studentId
+	 * @return
+	 */
+	Registion getRegistion(@Param("courseId") String courseId,@Param("studentId") String studentId);
 }

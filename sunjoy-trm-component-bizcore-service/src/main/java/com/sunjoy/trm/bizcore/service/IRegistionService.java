@@ -59,4 +59,11 @@ public interface IRegistionService {
 	 * @return
 	 */
 	public List<ScheduleStudentDto> getCourseStudents(String courseId);
+	
+	/**
+	 * 增加一次已排班节数
+	 * @param courseId
+	 * @param studentId
+	 */
+	public void increaseArrangedSections(String courseId,String studentId);
 }

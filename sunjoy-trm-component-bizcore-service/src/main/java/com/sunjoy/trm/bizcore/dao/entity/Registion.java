@@ -63,6 +63,10 @@ public class Registion  extends BaseEntity{
 	private String memo;
 	
 	private String status;
+	/**
+	 * 已排班节数
+	 */
+	private Integer arrangedSections;
 	
 	
 	public String getRegistionNo() {
@@ -142,5 +146,11 @@ public class Registion  extends BaseEntity{
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public Integer getArrangedSections() {
+		return arrangedSections;
+	}
+	public void setArrangedSections(Integer arrangedSections) {
+		this.arrangedSections = arrangedSections;
 	}
 }

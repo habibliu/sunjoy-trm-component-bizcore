@@ -1,5 +1,6 @@
 package com.sunjoy.trm.bizcore.dao.dto;
 
+
 public class ScheduleStudentDto {
 	private String id;
 	private String code;

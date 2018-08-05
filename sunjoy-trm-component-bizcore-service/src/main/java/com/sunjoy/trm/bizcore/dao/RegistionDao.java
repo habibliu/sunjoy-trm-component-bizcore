@@ -78,4 +78,8 @@ public class RegistionDao extends BaseDao<RegistionMapper, Registion>{
 		
 		return this.getMapper().getCourseStudents(courseId);
 	}
+	
+	public Registion getRegistion(String courseId,String studentId) {
+		return this.getMapper().getRegistion(courseId, studentId);
+	}
 }
