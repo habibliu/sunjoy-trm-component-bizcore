@@ -69,7 +69,7 @@
 				#{courseId,jdbcType=VARCHAR},
 			</if>
 			<if test="coachId != null and coachId != ''">
-				#{courseId,jdbcType=VARCHAR},
+				#{coachId,jdbcType=VARCHAR},
 			</if>
 			<if test="venueId != null and venueId != ''">
 				#{venueId,jdbcType=VARCHAR},
@@ -111,18 +111,19 @@
 	<!-- 查询,支持分页查询 -->
 	<select id="queryShifts" 
 		resultType="com.sunjoy.trm.bizcore.dao.dto.ShiftDto">
+		select 
 		<include refid="selectFields" />,
-		cou.code as courseCode,cou.name as courseName,
+		cou.name as courseName,
 		coa.name as coachName,
 		ven.name as venueName,
 		ss.student_count as studentCount
 		from biz.shift st
 		left join  mas.course cou on st.course_id=cou.id
-		left join mas.coach coa on st.course_id=coa.id
+		left join mas.coach coa on st.coach_id=coa.id
 		left join mas.venue ven on st.venue_id=ven.id
 		left join (select shift_id,count(0) as student_count from biz.shift_student group by shift_id) ss on ss.shift_id=st.id
 		<include refid="queryCondition" />
-		order by reg.create_time desc
+		order by st.create_time desc
 		<if test="page != null ">
 			limit ${page.pageSize} offset ${page.pageSize}*(${page.currentPage}-1)
 		</if>
@@ -133,7 +134,7 @@
 		select count(1) 
 		from biz.shift st
 		left join  mas.course cou on st.course_id=cou.id
-		left join mas.coach coa on st.course_id=coa.id
+		left join mas.coach coa on st.coach_id=coa.id
 		left join mas.venue ven on st.venue_id=ven.id
 		<include refid="queryCondition"/>
 	</select>
