@@ -14,7 +14,8 @@ public class ScheduleStudentDto {
 	/**
 	 * 已排期节数
 	 */
-	private Integer arrangedSection;
+	private Integer arrangedSections;
+	
 	public String getId() {
 		return id;
 	}
@@ -51,10 +52,10 @@ public class ScheduleStudentDto {
 	public void setTotalSections(Integer totalSections) {
 		this.totalSections = totalSections;
 	}
-	public Integer getArrangedSection() {
-		return arrangedSection;
+	public Integer getArrangedSections() {
+		return arrangedSections;
 	}
-	public void setArrangedSection(Integer arrangedSection) {
-		this.arrangedSection = arrangedSection;
+	public void setArrangedSections(Integer arrangedSections) {
+		this.arrangedSections = arrangedSections;
 	}
 }

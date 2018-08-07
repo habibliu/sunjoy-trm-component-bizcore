@@ -177,4 +177,9 @@
 	<delete id="deleteShift">
 		delete from biz.shift where id=#{id}
 	</delete>
+	
+	<select id="findShiftById" resultType="com.sunjoy.trm.bizcore.dao.entity.Shift">
+		select <include refid="selectFields"/>
+		from biz.shift where id=#{id}
+	</select>
 </mapper>

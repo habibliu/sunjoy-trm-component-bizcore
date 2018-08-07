@@ -66,4 +66,6 @@ public interface IRegistionService {
 	 * @param studentId
 	 */
 	public void increaseArrangedSections(String courseId,String studentId);
+	
+	public void decreaseArrangedSections(String courseId, String studentId);
 }

@@ -23,4 +23,6 @@ public interface ShiftMapper {
 	int update(Shift shift);
 	
 	int deleteShift(@Param("id") String id);
+	
+	Shift findShiftById(@Param("id") String id);
 }

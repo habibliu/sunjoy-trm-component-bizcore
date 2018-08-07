@@ -125,4 +125,20 @@ public class RegistionServiceImpl implements IRegistionService {
 		this.registionDao.updateRegistion(reg);
 	}
 
+	@Override
+	public void decreaseArrangedSections(String courseId, String studentId) {
+		Registion reg=this.registionDao.getRegistion(courseId, studentId);
+		if(reg==null) {
+			throw new CommonException("该学员未报名!");
+		}
+		int arrangedSections=reg.getArrangedSections()==null?0:reg.getArrangedSections();
+		if(arrangedSections>0) {
+			arrangedSections--;
+		}
+		
+		reg.setArrangedSections(arrangedSections);
+		this.registionDao.updateRegistion(reg);
+		
+	}
+
 }

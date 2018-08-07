@@ -261,7 +261,7 @@
 				attach_sections = #{attachSections,jdbcType=INTEGER},
 			</if>
 			<if test="arrangedSections != null ">
-				arranged_sections = #{arrangedSections,jdbcType=INTEGER},
+				arrangedSections_sections = #{arrangedSections,jdbcType=INTEGER},
 			</if>
 			<if test="totalFee != null">
 				total_fee = #{totalFee,jdbcType=INTEGER},
@@ -294,12 +294,9 @@
 	
 	<select id="getCourseStudents" resultType="com.sunjoy.trm.bizcore.dao.dto.ScheduleStudentDto">
 		select stu.id,stu.code,stu.name,stu.phone,reg.total_sections as totalSections,
-			case when arr.arranged_sections is null then 0 else arr.arranged_sections end as arrangedSections
+			case when reg.arranged_sections is null then 0 else reg.arranged_sections end as arrangedSections
 		from mas.student stu
 		inner join biz.registion reg on reg.student_id=stu.id
-		left join (select s.course_id,ss.student_id,count(0) as arranged_sections from biz.shift s
-			inner join biz.shift_student ss on s.id=ss.shift_id
-			group by s.course_id,ss.student_id) arr on arr.course_id=reg.course_id and arr.student_id=reg.student_id
 		where reg.course_id=#{courseId}
 	</select>
 	
