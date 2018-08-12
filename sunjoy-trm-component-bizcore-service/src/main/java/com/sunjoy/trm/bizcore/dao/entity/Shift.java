@@ -16,6 +16,11 @@ public class Shift  extends BaseEntity{
 	private String coachId;
 	private String venueId;
 	private String status;
+	private Integer totalCount;
+	private Integer normalCount;
+	private Integer leaveCount;
+	private Integer absentCount;
+	
 	public Date getTrainDate() {
 		return trainDate;
 	}
@@ -51,5 +56,29 @@ public class Shift  extends BaseEntity{
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public Integer getTotalCount() {
+		return totalCount;
+	}
+	public void setTotalCount(Integer totalCount) {
+		this.totalCount = totalCount;
+	}
+	public Integer getNormalCount() {
+		return normalCount;
+	}
+	public void setNormalCount(Integer normalCount) {
+		this.normalCount = normalCount;
+	}
+	public Integer getLeaveCount() {
+		return leaveCount;
+	}
+	public void setLeaveCount(Integer leaveCount) {
+		this.leaveCount = leaveCount;
+	}
+	public Integer getAbsentCount() {
+		return absentCount;
+	}
+	public void setAbsentCount(Integer absentCount) {
+		this.absentCount = absentCount;
 	}
 }

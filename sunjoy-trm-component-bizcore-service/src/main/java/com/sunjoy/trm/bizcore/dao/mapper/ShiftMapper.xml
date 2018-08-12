@@ -38,6 +38,9 @@
 			<if test="status != null and status != ''">
 				status,
 			</if>
+			<if test="totalCount != null">
+				total_count,
+			</if>
 			<if test="createTime != null">
 				create_time,
 			</if>
@@ -76,6 +79,9 @@
 			</if>
 			<if test="status != null and status != ''">
 				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="totalCount != null">
+				#{totalCount,jdbcType=INTEGER}
 			</if>
 			<if test="createTime != null">
 				#{createTime,jdbcType=TIMESTAMP},
@@ -146,7 +152,7 @@
 	</insert>
 	
 	<update id="updateShift" parameterType="com.sunjoy.trm.bizcore.dao.entity.Shift">
-		update biz.rule
+		update biz.shift
 		<set>
 			<if test="status != null">
 				status = #{status,jdbcType=VARCHAR},
@@ -162,6 +168,9 @@
 			</if>
 			<if test="trainTime != null and trainTime != ''">
 				train_time = #{trainTime,jdbcType=VARCHAR},
+			</if>
+			<if test="totalCount != null ">
+				total_count = #{totalCount,jdbcType=INTEGER},
 			</if>
 			<if test="updateTime != null">
 				update_time = #{updateTime,jdbcType=TIMESTAMP},
@@ -180,6 +189,14 @@
 	
 	<select id="findShiftById" resultType="com.sunjoy.trm.bizcore.dao.entity.Shift">
 		select <include refid="selectFields"/>
-		from biz.shift where id=#{id}
+		from biz.shift st where st.id=#{id}
 	</select>
+	
+	<update id="updateAttendanceTotal">
+		update biz.shift
+		set normal_count=#{normalCount},
+		leave_count=#{leaveCount},
+		absent_count=#{absentCount}
+		where id=#{id}
+	</update>
 </mapper>

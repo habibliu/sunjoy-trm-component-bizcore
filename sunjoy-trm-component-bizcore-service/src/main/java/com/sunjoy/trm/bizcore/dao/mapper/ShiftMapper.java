@@ -20,9 +20,15 @@ public interface ShiftMapper {
 	
 	int addShift(Shift shift);
 	
-	int update(Shift shift);
+	int updateShift(Shift shift);
 	
 	int deleteShift(@Param("id") String id);
 	
 	Shift findShiftById(@Param("id") String id);
+	/**
+	 * 
+	 * @param shift
+	 * @return
+	 */
+	int updateAttendanceTotal(Shift shift);
 }

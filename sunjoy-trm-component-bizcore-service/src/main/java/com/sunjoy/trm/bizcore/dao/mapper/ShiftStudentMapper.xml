@@ -9,8 +9,12 @@
 		</foreach>
 	</insert>
 	<select id="queryShiftStudents" resultType="com.sunjoy.trm.bizcore.dao.dto.ShiftStudentDto">
-		select sst.student_id as studentId,sst.shift_id as shiftId,st.name as studentName 
+		select sst.id as id,sst.student_id as studentId,sst.shift_id as shiftId,sst.checking_in as checkingIn
+		,st.name as studentName,
+		reg.total_sections as totalSections,reg.arranged_sections as arrangedSections 
 		from biz.shift_student sst
+		inner join biz.shift sh on sh.id=sst.shift_id
+		inner join biz.registion reg on reg.course_id=sh.course_id and reg.student_id=sst.student_id
 		inner join mas.student st on sst.student_id=st.id
 		where sst.shift_id=#{shiftId}
 	</select>
@@ -18,4 +22,18 @@
 	<delete id="deleteShfitStudents">
 		delete from biz.shift_student where shift_id=#{shiftId};
 	</delete>
+	
+	<update id="batchUpdateStudentAttendance" parameterType="java.util.List" >
+		update biz.shift_student set
+		checking_in=
+		<foreach collection="list" item="item" index="index" 
+	        separator=" " open="case ID" close="end">
+	        when #{item.id} then #{item.checkingIn}
+	    </foreach>
+	    where id in
+	    <foreach collection="list" index="index" item="item" 
+	        separator="," open="(" close=")">
+	        #{item.id,jdbcType=VARCHAR}
+	    </foreach>
+	</update>
 </mapper>

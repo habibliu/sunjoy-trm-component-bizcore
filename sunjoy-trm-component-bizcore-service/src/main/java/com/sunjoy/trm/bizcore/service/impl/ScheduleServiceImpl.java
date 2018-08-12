@@ -38,9 +38,11 @@ public class ScheduleServiceImpl implements IScheduelService{
 				shift.setId(RandomUtils.createUUID());
 			}
 			shift.setStatus("VALID");
-			this.shiftDao.addShift(shift);
+			
 			//批量保存排班记录下的学员
 			List<ShiftStudentDto> studentDtos=shiftDto.getStudents();
+			shift.setTotalCount(studentDtos.size());
+			this.shiftDao.addShift(shift);
 			if(studentDtos!=null && !studentDtos.isEmpty()) {
 				List<ShiftStudent> students=new ArrayList<ShiftStudent>();
 				for(ShiftStudentDto dto:studentDtos) {
@@ -52,6 +54,7 @@ public class ScheduleServiceImpl implements IScheduelService{
 					//增节学员的已排班节数
 					this.registionService.increaseArrangedSections(shiftDto.getCourseId(), shiftStudent.getStudentId());
 				}
+				
 				//批量增加
 				this.shiftStudentDao.batchAdd(students);
 			}else {
@@ -61,5 +64,6 @@ public class ScheduleServiceImpl implements IScheduelService{
 		}
 		
 	}
+
 
 }

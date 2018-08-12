@@ -261,7 +261,7 @@
 				attach_sections = #{attachSections,jdbcType=INTEGER},
 			</if>
 			<if test="arrangedSections != null ">
-				arrangedSections_sections = #{arrangedSections,jdbcType=INTEGER},
+				arranged_sections = #{arrangedSections,jdbcType=INTEGER},
 			</if>
 			<if test="totalFee != null">
 				total_fee = #{totalFee,jdbcType=INTEGER},

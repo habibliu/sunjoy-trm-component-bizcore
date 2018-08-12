@@ -9,7 +9,15 @@ public class ShiftStudentDto extends ShiftStudent{
 	
 	private String studentName;
 	
-
+	/**
+	 * 总课程节数
+	 */
+	private Integer totalSections;
+	/**
+	 * 已排期节数
+	 */
+	private Integer arrangedSections;
+	
 	public Date getTrainDate() {
 		return trainDate;
 	}
@@ -25,4 +33,21 @@ public class ShiftStudentDto extends ShiftStudent{
 	public void setStudentName(String studentName) {
 		this.studentName = studentName;
 	}
+
+	public Integer getTotalSections() {
+		return totalSections;
+	}
+
+	public void setTotalSections(Integer totalSections) {
+		this.totalSections = totalSections;
+	}
+
+	public Integer getArrangedSections() {
+		return arrangedSections;
+	}
+
+	public void setArrangedSections(Integer arrangedSections) {
+		this.arrangedSections = arrangedSections;
+	}
+
 }

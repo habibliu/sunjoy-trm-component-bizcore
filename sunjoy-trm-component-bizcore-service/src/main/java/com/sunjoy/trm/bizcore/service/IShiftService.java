@@ -20,5 +20,17 @@ public interface IShiftService {
 	public List<ShiftStudentDto> queryShiftStudents(String shiftId);
 	
 	void deleteShift(String id);
+	
+	/**
+	 * 更新考勤结果
+	 * @param shift
+	 */
+	void updateAttendance(ShiftDto shift);
+	
+	/**
+	 * 更新当天排班信息
+	 * @param shift
+	 */
+	void updateShift(ShiftDto shift);
 
 }

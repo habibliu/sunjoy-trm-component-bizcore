@@ -41,7 +41,7 @@ public class ShiftDao extends BaseDao<ShiftMapper, Shift>{
 	}
 	
 	public Integer updateShift(Shift shift) {
-		return this.getMapper().update(shift);
+		return this.getMapper().updateShift(shift);
 	}
 	
 	public Integer deleteShift(String id) {
